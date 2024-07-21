@@ -28,7 +28,7 @@ export default async function BlogPage() {
                 date={date}
                 title={title}
                 description={description}
-                // tags={tags}
+                tags={tags}
               />
             </li>
           );
