@@ -6,7 +6,7 @@ export const siteConfig = {
   links:{
     github: "https://github.com/noodlemin",
     linkedin: "https://www.linkedin.com/in/minkimdg/",
-    portfolio: "https://minsungkim.pro",
+    personalSite: "https://minsungkim.pro",
   },
 };
 
