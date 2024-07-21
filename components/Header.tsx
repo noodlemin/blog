@@ -5,7 +5,7 @@ import { buttonVariants } from "./ui/Button";
 import { Icons } from "./Icons";
 import { MainNav }  from "./MainNav";
 import { MobileNav } from "./MobileNav";
-// import { ModeToggle } from "./mode-toggle";
+import { ModeToggle } from "./ModeToggle";
 
 export function Header() {
   return (
@@ -44,7 +44,7 @@ export function Header() {
                 <span className="sr-only">Twitter</span>
               </div>
             </Link>
-            {/* <ModeToggle /> */}
+            <ModeToggle />
             <MobileNav />
           </nav>
         </div>
