@@ -8,9 +8,21 @@ const useMDXComponent = (code: string) => {
   return fn({ ...runtime }).default;
 };
 
+// you can do styling here. Copy and paste codes from below
+// https://github.com/shadcn-ui/taxonomy/blob/main/components/mdx-components.tsx
 const components = {
   Image,
   Callout,
+  // example
+  // h1: ({ className, ...props }) => (
+  //   <h1
+  //     className={cn(
+  //       "mt-2 scroll-m-20 text-4xl font-bold tracking-tight",
+  //       className
+  //     )}
+  //     {...props}
+  //   />
+  // ),
 };
 
 interface MdxProps {
