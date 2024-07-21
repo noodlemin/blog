@@ -19,7 +19,7 @@ export function MobileNav() {
           <span className='sr-only'>Toggle Theme</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side={"right"}>
+      <SheetContent side={"right"} className="w-1/2">
         <MobileLink
           onOpenChange={setOpen}
           href="/"
