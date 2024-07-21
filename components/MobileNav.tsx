@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "./ui/Sheet";
-import { Button } from "./ui/Button";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
+import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";

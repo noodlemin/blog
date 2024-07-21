@@ -1,7 +1,7 @@
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { buttonVariants } from "./ui/Button";
+import { buttonVariants } from "./ui/button";
 import { Icons } from "./Icons";
 import { MainNav }  from "./MainNav";
 import { MobileNav } from "./MobileNav";
