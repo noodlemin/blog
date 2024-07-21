@@ -28,7 +28,7 @@ export default async function AboutPage() {
             {siteConfig.author}
           </h2>
           <p className="text-muted-foreground text-center break-words">
-            Software Dev  eloper
+            Software Developer
           </p>
         </div>
         <p className="text-muted-foreground text-lg py-4">
