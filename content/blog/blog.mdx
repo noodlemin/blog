@@ -1,0 +1,50 @@
+---
+title: Next.js 14 Blog
+description: This blog
+date: 2024-07-04
+tags: ["Next.js", "mdx"]
+published: true
+---
+
+# Summary
+
+# Prerequsites
+
+- VS Code
+- [shadcn/ui](https://ui.shadcn.com/): Component library.
+  - [Dropdown Menu - shadcn/ui](https://ui.shadcn.com/docs/components/dropdown-menu)
+  - [Sheet - shadcn/ui](https://ui.shadcn.com/docs/components/sheet)
+  - [Pagination - shadcn/ui](https://ui.shadcn.com/docs/components/pagination)
+  - [taxonomy](https://github.com/shadcn-ui/taxonomy/blob/main/components/mdx-components.tsx): To change styles.
+  - [Avatar - shadcn/ui](https://ui.shadcn.com/docs/components/avatar)
+
+- [Velite](https://velite.js.org/): Turns Markdown / MDX, YAML, JSON, or other files into application data layer.
+- [Tailwind CSS](https://tailwindcss.com/)
+  - [tailwindlabs/tailwindcss-typography](https://github.com/tailwindlabs/tailwindcss-typography): Beautiful typographic defaults for HTML you don't control. Tailwind in default removes styling like `<h1>`, and this library brings it back, so we can write mdx files with styles.
+
+- [rehype](https://github.com/rehypejs): Syntax highligting for MDX code blocks.
+  - npm install rehype-pretty-code shiki -D
+  - npm install rehype-autolink-headings -D
+  - npm i rehype-slug -D
+
+- [github-slugger](https://github.com/Flet/github-slugger): Generate a slug just like GitHub does for markdown headings.
+- Git (optional)
+
+
+
+
+
+# Components
+
+## /comonents/Callout
+
+- Allows you some custom styling.
+
+## /app/api/og/route
+
+- Generates a preview image when you share a post.
+
+
+
+# Design Decision
+

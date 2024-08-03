@@ -1,0 +1,49 @@
+---
+title: JavaScript Notes
+description: JavaScript learning notes
+date: 2024-07-20
+tags: ["JavaScript", "Node.js", "React", "Next.js", "Full Stack"]
+published: true
+---
+# JavaScript
+## Variables
+- var: Function-scoped, meaning it is accessible within the function it is declared in. If declared outside a function, it becomes globally scoped.
+```js {6} showLineNumbers
+var x = 10;
+if (true) {
+  var x = 20; // same variable
+  console.log(x); // 20
+}
+console.log(x); // 20
+```
+
+- let: Block-scoped, meaning it is accessible only within the block (enclosed by {}) it is declared in.
+```js {6} showLineNumbers
+var x = 10;
+if (true) {
+  var x = 20; // same variable
+  console.log(x); // 20
+}
+console.log(x); // 10
+```
+
+- const: Block-scoped, similar to let. It should not be reassigned, ensuring the value remains constant.
+```js {6, 8} showLineNumbers
+const z = 10;
+if (true) {
+  const z = 20; // different variable
+  console.log(z); // 20
+}
+console.log(z); // 10
+
+// z = 30; // Error: Assignment to constant variable.
+```
+
+# Node.js
+## An asynchronous event-driven JavaScript (JS) runtime, Node.js is designed to build scalable network applications.
+- JS runtime: JS was originally designed to run in browsers, but Node.js extends its capabilities, allowing it to run on desktops and server-side environments.
+- asynchronous : JS is traditionally synchronous. For example, if you order something from Amazon, you can't do anything else until you receive your parcel. Only after you receive your parcel can you place another order. In contrast, Node.js is asynchronous, allowing you to place multiple orders simultaneously. While waiting for your first parcel, you can continue to order other items, making the process more efficient and non-blocking.
+- event-driven: Placing an order generates an event. While you wait for the first parcel, you can place additional orders. Each order generates a new event, and the system handles these events as they occur. This means you can continue to interact with the system (place more orders, track deliveries, etc.) without waiting for previous tasks to complete, making the process more efficient and responsive.
+
+# Express.js
+## A powerful and flexible framework that provides the foundational tools needed to build web applications and APIs with Node.js
