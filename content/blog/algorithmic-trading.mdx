@@ -2,8 +2,86 @@
 title: Algorithmic Trading
 description: Machine Learning & Quant Strategies
 date: 2024-07-31
-tags: ["Python", "Machine Learning", "S&P 500", "Investment"]
+tags: ["Python", "Machine Learning", "Investment"]
 published: true
 ---
 
-testing
+# Definition
+The use of computer programs and algorithms to execute trading strategies. These algorithms make decisions on the timing, price, and quantity of trades. They can be used for both manual and automated trading.
+
+# Predict the Bitcoin Market with Random Forest
+We'll begin by building a Random Forest model due to its strong performance and reliability. This model is particularly advantageous because it:
+  - **Learns efficiently**
+  - **Reduces overfitting**: By averaging multiple decision trees, the Random Forest model provides robust predictions and generalizes well to new data.
+
+These qualities make Random Forest an excellent choice for our baseline model.
+## Prerequisite
+### Supervised Learning
+#### Definition
+- Machine learning where the model is trained on a labeled dataset, meaning that each training example is paired with an output label. 
+#### Characteristics
+- **Labeled Data**: Requires a dataset where the input features are paired with the correct output (label).
+- **Predictive Modeling**: The primary goal is to predict the output for new, unseen data based on what it has learned from the training data.
+- **Performance Measurement**: Model accuracy is often evaluated using metrics like accuracy, precision, recall, F1-score (for classification), and mean squared error (for regression).
+#### Types of Supervised Learning
+- Logistic Regression: A linear model used for binary classification that predicts the probability of an outcome.
+- Decision Tree: A non-linear model that splits data into branches to make decisions based on feature values.
+- Random Forest: An ensemble learning method that builds multiple decision trees during training and merges them to improve accuracy and reduce the risk of overfitting.
+
+### Python
+#### Libraries
+- Pandas
+- scikit-learn
+- Matplotlib
+- yfinance (Optional): To download market data.
+
+
+
+
+
+
+### S&P 500 (Standard & Poor's 500)
+A stock market index that measures the stock performance of 500 of the largest publicly traded companies in the United States. It is widely regarded as one of the best representations of the U.S. stock market and the broader economy. The companies included in the S&P 500 are selected based on their market capitalization, liquidity, and industry representation, among other factors. The index is used by investors to gauge the overall health of the stock market and as a benchmark for investment performance.
+
+# Trading Terms
+## RSI (Relative Strength Index)
+- Meaning: RSI is a momentum oscillator that measures the speed and change of price movements. It is used to identify overbought or oversold conditions in a market.
+- Formula: RSI = 100 - [100 / (1 + RS)], where RS = Average Gain / Average Loss over a specified period.
+- Usage:
+  - RSI values above 70 generally indicate that an asset is overbought.
+  - RSI values below 30 suggest that an asset is oversold.
+- Period: Typically calculated over 14 periods.
+
+## BB (Bollinger Bands)
+- Meaning: Bollinger Bands are a volatility indicator consisting of a middle band (usually a simple moving average) and two outer bands that are standard deviations away from the middle band.
+- Formula:
+  - Middle Band = 20-day SMA (Simple Moving Average)
+  - Upper Band = Middle Band + 2 * 20-day Standard Deviation
+  - Lower Band = Middle Band - 2 * 20-day Standard Deviation
+- Usage:
+  - Prices touching the upper band may indicate an overbought condition.
+  - Prices touching the lower band may indicate an oversold condition.
+  - Bollinger Bands can also signal volatility, with the bands expanding during high volatility and contracting during low volatility.
+
+
+
+# Unsupervised Learning
+## Definition
+- Machine learning technique using data without explicit labels or outcomes.
+- Focuses on discovering hidden patterns, structures, and relationships in data.
+## Characteristics
+- **No Labeled Data**: Operates on unlabeled data.
+- **Pattern Discovery**: Identifies hidden patterns or groupings.
+- **Dimensionality Reduction**: Reduces the number of features for easier visualization and analysis.
+## Types of Unsupervised Learning
+- Clustering: Groups similar data points together.
+  - K-Means Clustering: Partitions data into K clusters.
+- Dimensionality Reduction: Simplifies data by reducing features.
+  - Principal Component Analysis (PCA): Transforms data into principal components.
+- Anomaly Detection: Identifies unusual data points.
+  - Isolation Forest: Detects anomalies by isolating observations.
+  - One-Class SVM: Learns a decision function for novelty detection.
+
+
+
+
