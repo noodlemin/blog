@@ -28,13 +28,51 @@ These qualities make Random Forest an excellent choice for our baseline model.
 - Decision Tree: A non-linear model that splits data into branches to make decisions based on feature values.
 - Random Forest: An ensemble learning method that builds multiple decision trees during training and merges them to improve accuracy and reduce the risk of overfitting.
 
-### Python
-#### Libraries
-- Pandas
-- scikit-learn
-- Matplotlib
-- yfinance (Optional): To download market data.
+### Python Environment Setup
+To build and train a Random Forest model for predicting Bitcoin prices, you'll need the following Python libraries:
+- **Jupyter Notebook**: An interactive environment to write and run code.
+- **Pandas**: For data manipulation and analysis.
+- **scikit-learn**: To implement the Random Forest model.
+- **Matplotlib**: For data visualization.
+- **yfinance** (Optional): To download market data.
 
+## Create the Random Forest Model Using scikit-learn
+### Import Required Libraries
+Before you begin, ensure that the necessary libraries are installed. You can install them using pip or conda:
+``` python
+import yfinance as yf
+import pandas as pd
+import os
+```
+### Load Bitcoin Price Data
+In this step, we'll load historical Bitcoin price data, either from a previously saved CSV file or by downloading it using yfinance.
+```python
+# Check if the data file already exists
+if os.path.exists("BTC_USD.csv"):
+    # Load the data from the CSV file
+    BTC_USD = pd.read_csv("BTC_USD.csv", index_col=0)
+# Download the data from Yahoo Finance if the file doesn't exist
+else:
+    BTC_USD = yf.Ticker("BTC-USD")
+    BTC_USD = BTC_USD.history(period="max")
+    # Save the downloaded data to a CSV file for future use
+    BTC_USD.to_csv("BTC_USD.csv")
+# Display the data to verify it's loaded correctly
+BTC_USD.Headers()
+```
+| Date                      | Open        | High        | Low         | Close       | Volume     | Dividends | Stock Splits |
+|---------------------------|-------------|-------------|-------------|-------------|------------|-----------|--------------|
+| 2014-09-17 00:00:00+00:00 | 465.864014  | 468.174011  | 452.421997  | 457.334015  | 21056800   | 0.0       | 0.0          |
+| 2014-09-18 00:00:00+00:00 | 456.859985  | 456.859985  | 413.104004  | 424.440002  | 34483200   | 0.0       | 0.0          |
+| 2014-09-19 00:00:00+00:00 | 424.102997  | 427.834991  | 384.532013  | 394.795990  | 37919700   | 0.0       | 0.0          |
+| 2014-09-20 00:00:00+00:00 | 394.673004  | 423.295990  | 389.882996  | 408.903992  | 36863600   | 0.0       | 0.0          |
+| 2014-09-21 00:00:00+00:00 | 408.084991  | 412.425995  | 393.181000  | 398.821014  | 26580100   | 0.0       | 0.0          |
+
+### Plot Bitcoin Price Data
+```python
+BTC_USD.plot.line(y="Close", use_index=True)
+```
+![plot](/images/algorithmic-trading/output.png)
 
 
 
