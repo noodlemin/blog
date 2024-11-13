@@ -37,6 +37,7 @@ To build and train a Random Forest model for predicting Bitcoin prices, you'll n
 - **yfinance** (Optional): To download market data.
 
 ## Create the Random Forest Model Using scikit-learn
+You can find the Jupyter notebook file [here](https://github.com/noodlemin/algorithmic-trading). It is besed on the tutorial from [the stock market prediction tutorial](https://www.youtube.com/watch?v=1O_BenficgE).
 ### Import Required Libraries
 Before you begin, ensure that the necessary libraries are installed. You can install them using pip or conda:
 ``` python
@@ -58,30 +59,106 @@ else:
     # Save the downloaded data to a CSV file for future use
     BTC_USD.to_csv("BTC_USD.csv")
 # Display the data to verify it's loaded correctly
+del BTC_USD["Dividends"]
+del BTC_USD["Stock Splits"]
 BTC_USD.Headers()
 ```
-| Date                      | Open        | High        | Low         | Close       | Volume     | Dividends | Stock Splits |
-|---------------------------|-------------|-------------|-------------|-------------|------------|-----------|--------------|
-| 2014-09-17 00:00:00+00:00 | 465.864014  | 468.174011  | 452.421997  | 457.334015  | 21056800   | 0.0       | 0.0          |
-| 2014-09-18 00:00:00+00:00 | 456.859985  | 456.859985  | 413.104004  | 424.440002  | 34483200   | 0.0       | 0.0          |
-| 2014-09-19 00:00:00+00:00 | 424.102997  | 427.834991  | 384.532013  | 394.795990  | 37919700   | 0.0       | 0.0          |
-| 2014-09-20 00:00:00+00:00 | 394.673004  | 423.295990  | 389.882996  | 408.903992  | 36863600   | 0.0       | 0.0          |
-| 2014-09-21 00:00:00+00:00 | 408.084991  | 412.425995  | 393.181000  | 398.821014  | 26580100   | 0.0       | 0.0          |
+| Date                      | Open        | High        | Low         | Close       | Volume     |
+|---------------------------|-------------|-------------|-------------|-------------|------------|
+| 2014-09-17 00:00:00+00:00 | 465.864014  | 468.174011  | 452.421997  | 457.334015  | 21056800   | 
+| 2014-09-18 00:00:00+00:00 | 456.859985  | 456.859985  | 413.104004  | 424.440002  | 34483200   |
+| 2014-09-19 00:00:00+00:00 | 424.102997  | 427.834991  | 384.532013  | 394.795990  | 37919700   |
+| 2014-09-20 00:00:00+00:00 | 394.673004  | 423.295990  | 389.882996  | 408.903992  | 36863600   |
+| 2014-09-21 00:00:00+00:00 | 408.084991  | 412.425995  | 393.181000  | 398.821014  | 26580100   |
 
 ### Plot Bitcoin Price Data
 ```python
 BTC_USD.plot.line(y="Close", use_index=True)
 ```
-![plot](/images/algorithmic-trading/output.png)
+![history_plot](/images/algorithmic-trading/output.png)
+
+### Add Tomorrow and Target Columns
+The "Tomorrow" column helps to know what the closing price will be on the next day for each row.
+The "Target" column indicates whether the price went up the next day (1 for yes, 0 for no), which can be used as a target variable in a machine learning model to predict price movements.
+```python
+BTC_USD["Tomorrow"] = BTC_USD["Close"].shift(-1)
+BTC_USD["Target"] = (BTC_USD["Tomorrow"] > BTC_USD["Close"]).astype(int)
+```
+
+### Train the Model
+The code initializes a RandomForestClassifier with 100 trees, splits the Bitcoin dataset into training and test sets, selects key features (Close, Volume, Open, High, Low) as predictors, and trains the model on the training data to predict whether the Bitcoin price will increase or decrease.
+```python
+from sklearn.ensemble import RandomForestClassifier
+# n_estimators: The number of trees in the forest; increasing this generally improves accuracy but can slow down the model.
+# min_samples_split: Controls the tree depth; higher values reduce overfitting but might slightly decrease accuracy.
+# random_state: Sets a seed for reproducibility.
+model = RandomForestClassifier(n_estimators=100, min_samples_split=100, random_state=1)
+# We use past data for training and future data for testing to avoid leakage issues. 
+train = BTC_USD.iloc[:-100]
+test = BTC_USD.iloc[-100:]
+# Define the features (predictors) to be used in the model
+predictors = ["Close", "Volume", "Open", "High", "Low"]
+```
+
+### Evaluate the Model
+[The precision](https://scikit-learn.org/0.15/modules/generated/sklearn.metrics.precision_score.html) is the ratio tp / (tp + fp) where tp is the number of true positives and fp the number of false positives. The precision is intuitively the ability of the classifier not to label as positive a sample that is negative.
+```python
+from sklearn.metrics import precision_score
+
+def predict(train, test, predictors, model):
+    # Train the model using the defined features and the target variable
+    model.fit(train[predictors], train["Target"])
+    preds = model.predict(test[predictors])
+    # Convert the numpy array to the pandas Series
+    preds = pd.Series(preds, index=test.index, name="Predictions")
+    # np.float64(0.5652173913043478)
+    precision_score(test["Target"], preds)
+    combined = pd.concat([test["Target"], preds], axis=1)
+    return combined
+
+# Plot the result
+predict(train, test, predictors, model).plot()
+```
+![base_result](/images/algorithmic-trading/base_plot.png)
+
+### Backtesting
+Backtesting is a method used to evaluate how well a trading strategy or financial model would have performed in the past. It involves applying the strategy to historical market data to see how it would have fared if it had been used during that time period.
+
+In this backtesting approach, we use the first 5 years of data (1825 days) to predict the 6th year’s data. Subsequently, we use the first 6 years of data to predict the 7th year’s data, and so on. The provided Python function, backtest, performs this iterative process:
+```python
+def backtest(data, model, predictors, start=1825, step=365):
+    all_predictions = []
+
+    for i in range(start, data.shape[0], step):
+        train = data.iloc[0:i].copy()
+        test = data.iloc[i:(i+step)].copy()
+        predictions = predict(train, test, predictors, model)
+        all_predictions.append(predictions)
+    
+    return pd.concat(all_predictions)
+
+predictions = backtest(BTC_USD, model, predictors)
+# Predictions
+# 0    1031
+# 1     769
+# Name: count, dtype: int64
+predictions["Predictions"].value_counts()
+# np.float64(0.5006501950585176)
+precision_score(predictions["Target"], predictions["Predictions"])
+# Target
+# 1    0.505
+# 0    0.495
+# Name: count, dtype: float64
+predictions["Target"].value_counts() / predictions.shape[0]
+```
+Here if we say price goes up everyday, 50.07 percent chance it is correct.
 
 
 
-
-
+# Trading Terms
 ### S&P 500 (Standard & Poor's 500)
 A stock market index that measures the stock performance of 500 of the largest publicly traded companies in the United States. It is widely regarded as one of the best representations of the U.S. stock market and the broader economy. The companies included in the S&P 500 are selected based on their market capitalization, liquidity, and industry representation, among other factors. The index is used by investors to gauge the overall health of the stock market and as a benchmark for investment performance.
 
-# Trading Terms
 ## RSI (Relative Strength Index)
 - Meaning: RSI is a momentum oscillator that measures the speed and change of price movements. It is used to identify overbought or oversold conditions in a market.
 - Formula: RSI = 100 - [100 / (1 + RS)], where RS = Average Gain / Average Loss over a specified period.
