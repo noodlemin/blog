@@ -32,7 +32,7 @@ export default async function AboutPage() {
           </p>
         </div>
         <div className="text-muted-foreground text-lg py-4 space-y-4">
-          <p>Hello! I’m Minsung Kim, a passionate software developer with a Master's degree in Informatics from the University of Edinburgh.</p>
+          <p>Hello! I’m Minsung Kim, a passionate software developer with a Master&apos;s degree in Informatics from the University of Edinburgh.</p>
 
           <p>
           During my academic and professional career, I’ve worked on diverse projects, from developing a drone pathfinding program using the A* algorithm to designing a gardening robot powered by machine learning and computer vision. My experience spans creating search engines with Python and Flask, building statistical models with R, and leveraging PyTorch and Google Cloud for action recognition applications.
