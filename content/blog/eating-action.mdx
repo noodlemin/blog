@@ -1,9 +1,65 @@
 ---
-title: Recognising Eating Action
-description: PyTorch 
-date: 2024-07-26
-tags: ["Next.js", "mdx"]
-published: true
+title: "Improving Elder Care with AI: Anonymized Action Recognition and Surveillance"
+date: "2024-12-10"
+author: "Minsung Kim"
+tags: ["AI", "Healthcare", "Computer Vision"]
 ---
 
-<iframe src="https://drive.google.com/file/d/1_PFmGZjhbwf3fOXjxmqGStcpzBg48i-v/preview" width="640" height="480" allow="autoplay"></iframe>
+<iframe src="https://drive.google.com/file/d/1_PFmGZjhbwf3fOXjxmqGStcpzBg48i-v/preview" width="720" height="600" allow="autoplay"></iframe>
+
+Population aging presents unique challenges, particularly in healthcare, as the growing elder population demands more care than current resources can provide. In this project, we explored how Artificial Intelligence (AI) can bridge the gap through a camera-based motion estimation system to monitor elders' daily activities and assess their well-being. By employing advanced computer vision techniques and anonymization methods, we aimed to deliver a privacy-respecting solution that could improve elder care while ensuring data security.
+
+## Motivation
+
+Elderly individuals face risks like motor deterioration and balance issues, which can hinder their ability to live independently. Monitoring their daily actions, such as eating behaviors, can provide early insights into potential health concerns. However, traditional monitoring solutions often compromise privacy or require intrusive devices. Our work seeks to address these issues by:
+
+- Introducing a **marker-less motion estimation system** to monitor actions non-invasively.
+- Using anonymization techniques to protect participants' identities.
+
+## Approach
+
+### Data Collection and Labeling
+
+We created a custom dataset of eating actions, simulating elder conditions by recording participants with and without wrist weights. The dataset featured diverse eating habits, including chopsticks, spoons, and forks, ensuring inclusivity across cultural contexts.
+
+- **Tools Used**: RGB-Depth cameras for video capture.
+- **Annotations**: Labeled 16 distinct actions, such as "Pick up utensil" and "Chewing," using the VGG Image Annotator (VIA).
+
+### Anonymization
+
+To address privacy concerns, we anonymized the videos using **DeepPrivacy2**, a GAN-based anonymization tool. This method replaced identifiable facial features with synthetic yet realistic faces while preserving the quality needed for action recognition.
+
+- **Challenges**:
+  - High computational demand with limited GPU resources.
+  - Ensuring the anonymized data retained usability for machine learning tasks.
+
+### Action Recognition
+
+We implemented the **Temporal Adaptive Module (TAM)**, a state-of-the-art action recognition algorithm, to classify eating actions from videos. 
+
+- **Techniques Used**:
+  - Cross-validation to ensure robust model performance.
+  - Metrics like Top-1, Top-2, and Macro accuracy to evaluate results.
+  - Confusion matrices for analyzing model predictions.
+
+## Results
+
+Our findings highlight the potential of AI in elder care:
+
+- The anonymized dataset performed comparably to the original dataset, with minimal loss in action classification accuracy.
+- TAM achieved high Top-1 accuracy (up to 86.7%) and demonstrated reliable performance for majority classes.
+- Macro accuracy identified areas for improvement in minority class classification, paving the way for future refinements.
+
+## Future Work
+
+While the results are promising, further developments are needed:
+
+- Automating label validation to improve dataset quality.
+- Exploring **meta-learning techniques** to enhance efficiency and reduce the need for retraining models with new data.
+- Scaling the system to monitor additional actions and integrate with broader healthcare solutions.
+
+## Conclusion
+
+This project demonstrates the transformative potential of AI in elder care. By combining anonymized datasets, advanced action recognition algorithms, and a focus on privacy, we have taken a significant step toward developing a scalable, non-invasive health monitoring system. With further improvements, this technology could empower elders to live independently with greater confidence and safety.
+
+---

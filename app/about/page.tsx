@@ -31,15 +31,23 @@ export default async function AboutPage() {
             Software Developer
           </p>
         </div>
-        <p className="text-muted-foreground text-lg py-4">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum
-        </p>
+        <div className="text-muted-foreground text-lg py-4 space-y-4">
+          <p>Hello! I’m Minsung Kim, a passionate software developer with a Master's degree in Informatics from the University of Edinburgh.</p>
+
+          <p>
+          During my academic and professional career, I’ve worked on diverse projects, from developing a drone pathfinding program using the A* algorithm to designing a gardening robot powered by machine learning and computer vision. My experience spans creating search engines with Python and Flask, building statistical models with R, and leveraging PyTorch and Google Cloud for action recognition applications.
+          </p>
+          <p>
+          Before diving into software development, I honed my technical skills with a Diploma in Electronics Engineering from Centennial College, where I designed circuits, built motor-controlled systems, and explored IoT solutions.
+          </p>
+          <p>
+          Outside of work, I enjoy cooking new recipes and hitting the gym to stay active and energized.
+          </p>
+          <p>
+          Thanks for stopping by! Feel free to connect with me via the footer links.
+          </p>
+
+        </div>
       </div>
     </div>
   );
