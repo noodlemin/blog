@@ -1,49 +1,232 @@
 ---
-title: JavaScript Notes
-description: JavaScript learning notes
+title: Basic JS Online Shop
+description: Ideal for learning and practicing core web development skills.
 date: 2024-07-20
-tags: ["JavaScript", "Node.js", "React", "Next.js", "Full Stack"]
+tags: ["JavaScript", "CSS", "HTML"]
 published: true
 ---
-# JavaScript
-## Variables
-- var: Function-scoped, meaning it is accessible within the function it is declared in. If declared outside a function, it becomes globally scoped.
-```js {6} showLineNumbers
-var x = 10;
-if (true) {
-  var x = 20; // same variable
-  console.log(x); // 20
-}
-console.log(x); // 20
+
+# UIs 
+## Alert Box
+Creating an alert box manually using basic JavaScript is a great way to learn DOM manipulation.
+``` js showLineNumbers
+  <!-- HTML Structure -->
+  <div class="alert-box" id="alert">
+    alert
+    <button onclick="document.getElementById('alert').style.display='none'">x</button> box
+  </div>
+  // Button to show the alert box
+  <button onclick="document.getElementById('alert').style.display='block'">Show Alert</button>
+```
+### Function
+The above code demonstrates how to simplify alert box functionality using JavaScript functions instead of inline logic. By encapsulating the behavior into reusable functions, we achieve cleaner and more maintainable code.
+``` js {4,7} showLineNumbers
+  <!-- HTML Structure -->
+  <div class="alert-box" id="alert">
+    alert
+    <button onclick="closeAlert()">x</button> 
+  </div>
+  // Button to show the alert box
+  <button onclick="openAlert()">Show Alert</button>
+
+  <script>
+    function openAlert(){
+      document.getElementById('alert').style.display='block'
+    }
+    function closeAlert(){
+      document.getElementById('alert').style.display='none'
+    }
+  </script>
+```
+Now with the parameters. Line 4 shows that we can skip some parameters.
+``` js {4,7} showLineNumbers
+  <!-- HTML Structure -->
+  <div class="alert-box" id="alert"> <!-- Alert box container -->
+    <span id="alert-message">Alert message</span> <!-- Displays the alert message -->
+    <button onclick="alertBox('none')">Close</button> <!-- Button to close the alert -->
+  </div>
+
+  <button onclick="alertBox('block', 'ID required')">ID Alert</button> <!-- Button to show ID alert -->
+  <button onclick="alertBox('block', 'Password required')">Password Alert</button> <!-- Button to show Password alert -->
+
+  <script>
+    // JavaScript function to control the alert box
+    function alertBox(state, message){
+      document.getElementById('alert').style.display = state; // Set display state (block or none)
+      document.getElementById('alert-message').innerText = message; // Update the alert message
+    }
+  </script>
 ```
 
-- let: Block-scoped, meaning it is accessible only within the block (enclosed by {}) it is declared in.
-```js {6} showLineNumbers
-var x = 10;
-if (true) {
-  var x = 20; // same variable
-  console.log(x); // 20
-}
-console.log(x); // 10
+We can replace onclick with the event listener and the callback function.
+``` js {4,18-19} showLineNumbers
+  <!-- HTML Structure -->
+  <div class="alert-box" id="alert"> <!-- Alert box container -->
+    <span id="alert-message">Alert message</span> <!-- Displays the alert message -->
+    <button id="close">Close</button> <!-- Button to close the alert -->
+  </div>
+
+  <button onclick="alertBox('block', 'ID required')">ID Alert</button> <!-- Button to show ID alert -->
+  <button onclick="alertBox('block', 'Password required')">Password Alert</button> <!-- Button to show Password alert -->
+
+  <script>
+    // JavaScript function to control the alert box
+    function alertBox(state, message){
+      document.getElementById('alert').style.display = state; // Set display state (block or none)
+      document.getElementById('alert-message').innerText = message; // Update the alert message
+    }
+
+    // Event listener for the close button 
+    document.getElementById('close').addEventListener('click', function() {
+      alertBox('none'); // Hide the alert box
+    });
+  </script>
 ```
 
-- const: Block-scoped, similar to let. It should not be reassigned, ensuring the value remains constant.
-```js {6, 8} showLineNumbers
-const z = 10;
-if (true) {
-  const z = 20; // different variable
-  console.log(z); // 20
-}
-console.log(z); // 10
+## Navigation Bar
+Learn how to create a navigation bar using [Bootstrap](https://getbootstrap.com/). You can install Bootstrap using an npm command `npm i bootstrap` and integrate it into your project by adding a few lines to your HTML. Keep in mind the CSS cascading rule: your custom styles must be loaded after Bootstrap's CSS to take precedence. Here's the correct order:
+```js showLineNumbers
+<head>
+  <!-- Include Bootstrap CSS first -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Include your custom CSS afterwards -->
+  <link rel="stylesheet" href="main.css">
+</head>
+```
+By following this structure, you ensure that your custom styles will properly override Bootstrap's defaults wherever necessary.
 
-// z = 30; // Error: Assignment to constant variable.
+```js showLineNumbers
+<body>
+  ...
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+```
+Make sure to include this script just before the closing `</body>` tag.
+
+You can now explore various components available on the Bootstrap website and incorporate them into your HTML. Here's an example of a navigation bar created with Bootstrap:
+```js showLineNumbers
+  <nav class="navbar navbar-light bg-light">
+    <div class="container-fluid">
+      <span class="navbar-brand">Navbar</span>
+      <button class="navbar-toggler" type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav> 
+
+  <ul class="list-group">
+    <li class="list-group-item">An item</li>
+    <li class="list-group-item">A second item</li>
+    <li class="list-group-item">A third item</li>
+    <li class="list-group-item">A fourth item</li>
+    <li class="list-group-item">And a fifth one</li>
+  </ul> 
+```
+This code creates a simple navigation bar using Bootstrap with a toggle button, and a list of items styled as a Bootstrap list group.
+
+To toggle the list by clicking the button, you need to add a JavaScript script using a query selector. The querySelector method is concise but selects only the first element matching the specified class. To target a specific element among multiple matches, you should use querySelectorAll and specify the index of the desired element.
+
+```js showLineNumbers
+  <script>
+    document.querySelector('.navbar-toggler').addEventListener('click', function(){
+      document.querySelector('.list-group').classList.toggle('show');
+    })
+  </script>
 ```
 
-# Node.js
-## An asynchronous event-driven JavaScript (JS) runtime, Node.js is designed to build scalable network applications.
-- JS runtime: JS was originally designed to run in browsers, but Node.js extends its capabilities, allowing it to run on desktops and server-side environments.
-- asynchronous : JS is traditionally synchronous. For example, if you order something from Amazon, you can't do anything else until you receive your parcel. Only after you receive your parcel can you place another order. In contrast, Node.js is asynchronous, allowing you to place multiple orders simultaneously. While waiting for your first parcel, you can continue to order other items, making the process more efficient and non-blocking.
-- event-driven: Placing an order generates an event. While you wait for the first parcel, you can place additional orders. Each order generates a new event, and the system handles these events as they occur. This means you can continue to interact with the system (place more orders, track deliveries, etc.) without waiting for previous tasks to complete, making the process more efficient and responsive.
+You can make it even more concise by using [jQuery](https://releases.jquery.com/). To use jQuery in your HTML, you need to include the jQuery library before your custom script. Here's where to add it:
+```js showLineNumbers
+<body>
+  ...
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossOrigin="anonymous"></script>
+  <script>
+    $('.navbar-toggler').on('click', function(){
+      $('.list-group').classList.toggle('show');
+    })
+  </script>
+</body>
+```
 
-# Express.js
-## A powerful and flexible framework that provides the foundational tools needed to build web applications and APIs with Node.js
+## Animation
+For performance reasons, it's ideal to achieve animations using only CSS. Typically, creating simple one-way animations involves just three steps:
+
+  1. Define the initial state.
+  2. Define the end state.
+  3. Write JavaScript to transition from the initial state to the end state(as demonstrated above).
+```js showLineNumbers {8-10} {14-16}
+.black-bg {
+  width : 100%;
+  height : 0;
+  top: 0;
+  left: 0;
+  position : fixed;
+  background : rgba(0,0,0,0.5);
+  z-index : 5;
+  padding: 30px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s;
+}
+
+.show{
+  visibility: visible;
+  opacity: 1;
+  height: 100%;
+}
+```
+Now, instead of removing the element, we hide it (the initial state, lines 8-9), and the black background expands downward (the end state, lines 14-16).
+
+## Form
+We can create a login element using a form, which captures user input and sends it to the server. Conditional logic, such as if-else statements, can be used to validate the input or set specific conditions.
+
+
+```js showLineNumbers
+  ...
+  <div class="black-bg">
+    <div class="white-bg">
+      <h4>Please log in </h4>
+      <form action="success.html">
+        <div class="my-3">
+          <input type="text" class="form-control" id="login-id">
+         </div>
+         <div class="my-3">
+           <input type="password" class="form-control" id="login-password">
+         </div>
+         <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
+         <button type="button" class="btn btn-danger" id="close">Close</button>
+      </form> 
+    </div>
+  </div> 
+  ...
+  <script>
+    $('#submit-button').on('click', function(e){
+      if ($('#login-id').val().trim().length == ""){
+        alert('Enter your ID');
+        // prevent the event
+        e.preventDefault();
+      }
+      else if ($('#login-password').val().trim()===""){
+        alert('Enter your Password');
+        e.preventDefault();
+      }
+      else if ($('#login-password').val().trim().length < 6){
+        alert('Password length should be more than 5');
+        e.preventDefault();
+      }
+    })
+  </script>
+```
+This will display an alert if there are issues with the ID or password inputs and prevent navigation to the next page.
+
+We can use the 'input' and 'change' events for the password field to provide feedback when the length is insufficient. The 'input' event displays warnings while the user is typing, whereas the 'change' event triggers warnings when the user moves focus away (e.g., by clicking elsewhere).
+
+```js showLineNumbers
+  // password length warning
+  $('#login-password').on('input', function(){
+    if ($('#login-password').val().trim().length < 6){
+      $('.password-check').addClass('show-password-check')
+    } else{
+      $('.password-check').removeClass('show-password-check')
+    }
+  })
+```

@@ -8,3 +8,23 @@ published: true
 
 # Definition
 React is a JavaScript library for building interactive UIs, developed by Facebook. It uses a component-based structure to create reusable, efficient interfaces and handles only the view layer of apps. With React, UIs are built as small components that manage their own state. The virtual DOM ensures fast updates, and React’s unidirectional data flow makes it easy to track changes.
+
+# State
+## Why Use **State** in React?
+
+### 1. **Automatic Re-rendering**  
+- When a state variable changes, React automatically updates and re-renders the relevant parts of the UI.
+
+### 2. **Efficient Updates**  
+- If a state variable is updated to the **same value** as before, React will **not trigger a re-render**, optimizing performance.
+
+### 3. **Handling Arrays/Objects**  
+State for arrays or objects **stores a reference (pointer)** to the original data.
+
+To **avoid modifying the original data**, always create a copy when updating:
+
+```javascript
+let copy = [...data]; // For arrays (shallow copy)
+let copy = { ...data }; // For objects (shallow copy)
+```
+Directly assigning let copy = data; only copies the reference. Changes to copy would affect the original state.
