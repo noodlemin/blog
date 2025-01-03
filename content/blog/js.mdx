@@ -230,3 +230,29 @@ We can use the 'input' and 'change' events for the password field to provide fee
     }
   })
 ```
+
+## Dark Mode
+You can create a dark mode badge that toggles between dark and white modes by tracking the number of times the mode badge is clicked.
+
+```js showLineNumbers
+let toggleCount = 0;
+  $('#dark-mode').on('click', function(){
+    toggleCount += 1;
+    if (toggleCount%2 == 0){
+      $('#dark-mode').text('Light 🔄');
+      $('body').addClass('dark');
+    }
+    else{
+      $('#dark-mode').text('Dark 🔄');
+      $('body').removeClass('dark');
+    }
+  })
+```
+
+The default state is dark mode, so when the toggle count is even, dark mode is enabled, and when it's odd, light mode is enabled. Additionally, it's important to understand the differences between variables like var, let, and const.
+| Variable     | Declaration | Manipulation | Scope/Range       |
+|--------------|--------------|--------------|-------------------|
+| `var`        | Function-scoped or globally scoped | Can be re-assigned and re-declared | Scoped to the function or globally if not declared within a function or block |
+| `let`        | Block-scoped   | Can be re-assigned but not re-declared | Scoped to the block, meaning it's limited to the block where it's declared |
+| `const`      | Block-scoped   | Cannot be re-assigned or re-declared | Scoped to the block, with the value being immutable once set |
+
