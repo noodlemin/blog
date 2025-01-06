@@ -1,14 +1,22 @@
 ---
-title: Basic JS Online Shop
+title: Online Shop Using Basic JavaScript
 description: Ideal for learning and practicing core web development skills.
 date: 2024-07-20
 tags: ["JavaScript", "CSS", "HTML"]
 published: true
 ---
+[GitHub Repository](https://github.com/noodlemin/basic-js-online-shop)
 
-# UIs 
+In this blog, I’ll share the challenges I faced while building the online shop webpage, organized by difficulty level, and illustrate how I tackled each to enhance my development skills.
+
+# Difficulty: Easy
 ## Alert Box
-Creating an alert box manually using basic JavaScript is a great way to learn DOM manipulation.
+### What is it?
+A simple box that appears when you click a button.
+### What did I learn?
+Manually creating an alert box using basic JavaScript is a valuable exercise for understanding DOM manipulation.
+### Problems I faced
+None.
 ``` js showLineNumbers
   <!-- HTML Structure -->
   <div class="alert-box" id="alert">
@@ -18,8 +26,13 @@ Creating an alert box manually using basic JavaScript is a great way to learn DO
   // Button to show the alert box
   <button onclick="document.getElementById('alert').style.display='block'">Show Alert</button>
 ```
-### Function
-The above code demonstrates how to simplify alert box functionality using JavaScript functions instead of inline logic. By encapsulating the behavior into reusable functions, we achieve cleaner and more maintainable code.
+## Function
+### What is it?
+A black box that produces results when you input data.
+### What did I learn?
+Understanding how to utilize functions effectively in JavaScript.
+### Problems I faced
+None.
 ``` js {4,7} showLineNumbers
   <!-- HTML Structure -->
   <div class="alert-box" id="alert">
@@ -84,7 +97,24 @@ We can replace onclick with the event listener and the callback function.
 ```
 
 ## Navigation Bar
-Learn how to create a navigation bar using [Bootstrap](https://getbootstrap.com/). You can install Bootstrap using an npm command `npm i bootstrap` and integrate it into your project by adding a few lines to your HTML. Keep in mind the CSS cascading rule: your custom styles must be loaded after Bootstrap's CSS to take precedence. Here's the correct order:
+### What is it?
+A user interface element that displays a set of links or menus, allowing users to navigate through different sections or pages of a website when they click on it.
+### What did I learn?
+- I can control the visibility of the component by toggling a class. By default, hide the component, and add the class to display it when needed.
+```js showLineNumbers
+// CSS
+.list-group {
+  display : none
+}
+.show {
+  display : block
+}
+// JS
+document.getElementsByClassName('navbar-toggler')[0].addEventListener('click', function(){
+  document.getElementsByClassName('list-group')[0].classList.toggle('show');
+});
+```
+- Bootstrap: Learn how to create a navigation bar using [Bootstrap](https://getbootstrap.com/). You can install Bootstrap using an npm command `npm i bootstrap` and integrate it into your project by adding a few lines to your HTML. Keep in mind the CSS cascading rule: your custom styles must be loaded after Bootstrap's CSS to take precedence. Here's the correct order:
 ```js showLineNumbers
 <head>
   <!-- Include Bootstrap CSS first -->
@@ -101,40 +131,8 @@ By following this structure, you ensure that your custom styles will properly ov
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 ```
-Make sure to include this script just before the closing `</body>` tag.
-
-You can now explore various components available on the Bootstrap website and incorporate them into your HTML. Here's an example of a navigation bar created with Bootstrap:
-```js showLineNumbers
-  <nav class="navbar navbar-light bg-light">
-    <div class="container-fluid">
-      <span class="navbar-brand">Navbar</span>
-      <button class="navbar-toggler" type="button">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-    </div>
-  </nav> 
-
-  <ul class="list-group">
-    <li class="list-group-item">An item</li>
-    <li class="list-group-item">A second item</li>
-    <li class="list-group-item">A third item</li>
-    <li class="list-group-item">A fourth item</li>
-    <li class="list-group-item">And a fifth one</li>
-  </ul> 
-```
-This code creates a simple navigation bar using Bootstrap with a toggle button, and a list of items styled as a Bootstrap list group.
-
-To toggle the list by clicking the button, you need to add a JavaScript script using a query selector. The querySelector method is concise but selects only the first element matching the specified class. To target a specific element among multiple matches, you should use querySelectorAll and specify the index of the desired element.
-
-```js showLineNumbers
-  <script>
-    document.querySelector('.navbar-toggler').addEventListener('click', function(){
-      document.querySelector('.list-group').classList.toggle('show');
-    })
-  </script>
-```
-
-You can make it even more concise by using [jQuery](https://releases.jquery.com/). To use jQuery in your HTML, you need to include the jQuery library before your custom script. Here's where to add it:
+Make sure to include this script just before the closing `</body>` tag for the performance reason.
+- jQuery: You can make your code concise by using [jQuery](https://releases.jquery.com/). To use jQuery in your HTML, you need to include the jQuery library before your custom script. Here's where to add it:
 ```js showLineNumbers
 <body>
   ...
@@ -146,113 +144,191 @@ You can make it even more concise by using [jQuery](https://releases.jquery.com/
   </script>
 </body>
 ```
+### Problems I faced
+My script didn't work because it was placed before the jQuery import.
 
 ## Animation
-For performance reasons, it's ideal to achieve animations using only CSS. Typically, creating simple one-way animations involves just three steps:
-
+### What is it?
+Creating an engaging user experience by animating and moving components on your website.
+### What did I learn?
+- For performance reasons, it's ideal to achieve animations using only CSS.
+- Typically, creating simple one-way animations involves just three steps:
   1. Define the initial state.
   2. Define the end state.
-  3. Write JavaScript to transition from the initial state to the end state(as demonstrated above).
-```js showLineNumbers {8-10} {14-16}
-.black-bg {
-  width : 100%;
-  height : 0;
-  top: 0;
-  left: 0;
-  position : fixed;
-  background : rgba(0,0,0,0.5);
-  z-index : 5;
-  padding: 30px;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.5s;
-}
+  3. Write JavaScript to transition from the initial state to the end state.
 
-.show{
-  visibility: visible;
-  opacity: 1;
-  height: 100%;
-}
-```
-Now, instead of removing the element, we hide it (the initial state, lines 8-9), and the black background expands downward (the end state, lines 14-16).
+  Here is the example:
+  ```js showLineNumbers {10-12} {16-18}
+  .black-bg {
+    width : 100%;
+    height : 0;
+    top: 0;
+    left: 0;
+    position : fixed;
+    background : rgba(0,0,0,0.5);
+    z-index : 5;
+    padding: 30px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s;
+  }
+
+  .show{
+    visibility: visible;
+    opacity: 1;
+    height: 100%;
+  }
+  ```
+  We hide the element initially (lines 10-11), while the black background expands downward to cover the entire view (lines 16-18). Line 12 property smoothly changes between these states, creating a seamless transition effect over 0.5 seconds.
+### Problems I faced
+None.
 
 ## Form
+### What is it?
 We can create a login element using a form, which captures user input and sends it to the server. Conditional logic, such as if-else statements, can be used to validate the input or set specific conditions.
-
-
-```js showLineNumbers
-  ...
-  <div class="black-bg">
-    <div class="white-bg">
-      <h4>Please log in </h4>
-      <form action="success.html">
-        <div class="my-3">
-          <input type="text" class="form-control" id="login-id">
-         </div>
-         <div class="my-3">
-           <input type="password" class="form-control" id="login-password">
-         </div>
-         <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
-         <button type="button" class="btn btn-danger" id="close">Close</button>
-      </form> 
-    </div>
-  </div> 
-  ...
-  <script>
-    $('#submit-button').on('click', function(e){
-      if ($('#login-id').val().trim().length == ""){
-        alert('Enter your ID');
-        // prevent the event
-        e.preventDefault();
-      }
-      else if ($('#login-password').val().trim()===""){
-        alert('Enter your Password');
-        e.preventDefault();
-      }
-      else if ($('#login-password').val().trim().length < 6){
-        alert('Password length should be more than 5');
-        e.preventDefault();
-      }
-    })
-  </script>
-```
-This will display an alert if there are issues with the ID or password inputs and prevent navigation to the next page.
-
-We can use the 'input' and 'change' events for the password field to provide feedback when the length is insufficient. The 'input' event displays warnings while the user is typing, whereas the 'change' event triggers warnings when the user moves focus away (e.g., by clicking elsewhere).
-
-```js showLineNumbers
-  // password length warning
-  $('#login-password').on('input', function(){
-    if ($('#login-password').val().trim().length < 6){
-      $('.password-check').addClass('show-password-check')
-    } else{
-      $('.password-check').removeClass('show-password-check')
+### What did I learn?
+- It gathers user input and sends it to the designated server. You can prevent this action using `preventDefault()` if there are any issues or specific conditions to handle.
+- There are various types of events like 'click', 'input', and 'change'. For password fields, we can use both 'input' and 'change' events to provide feedback if the length is insufficient. The 'input' event shows warnings as the user types, while the 'change' event triggers warnings when the user moves focus (e.g., by clicking elsewhere).
+  ```js showLineNumbers
+    <script>
+      $('#submit-button').on('click', function(e){
+        if ($('#login-id').val().trim().length == ""){
+          alert('Enter your ID');
+          // prevent the event
+          e.preventDefault();
+        }
+        ...
+      })
+      // password length feedback
+      $('#login-password').on('input', function(){
+        if ($('#login-password').val().trim().length < 6){
+          $('.password-check').addClass('show-password-check')
+        } else{
+          $('.password-check').removeClass('show-password-check')
+        }
+      })
+    </script>
+  ```
+  This will display an alert if there are issues with the ID or password inputs and prevent navigation to the next page.
+- We can use [Regular Expression](https://en.wikipedia.org/wiki/Regular_expression) to validate or match specific patterns within a string. In JavaScript, it works like this:
+  ``` js showLineNumbers
+  // this chekcs if the string '123abc' contains any numbers
+  /[0-9]/.test('123abc')
+  ```
+  Update the code above to verify that the ID follows an email format and the password meets the criteria of being at least 8 characters long and containing at least one special character.
+  ``` js showLineNumbers
+  // input check
+  $('#submit-button').on('click', function(e){
+    // inputs saved in variables
+    let idInput = $('#login-id').val().trim();
+    let passInput = $('#login-password').val().trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(idInput)){
+      alert('ID should be in email format');
+      // prevent the event
+      e.preventDefault();
+    }
+    else if (!/^(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/.test(passInput)){
+      alert('Password should have a minimum length of 8 and contains at least one special character');
+      e.preventDefault();
     }
   })
-```
+  ```
+### Problems I faced
+- I studied regular expressions in university, but I don't recall much about them now.
 
 ## Dark Mode
-You can create a dark mode badge that toggles between dark and white modes by tracking the number of times the mode badge is clicked.
-
+### What is it?
+For the sake of your eyes, you can switch your website theme to dark mode. You'll need two versions of CSS—one for the light theme and another for the dark theme.
+### What did I learn?
+- You can create a dark mode badge that toggles between dark and white modes by tracking the number of times the mode badge is clicked.
+  ```js showLineNumbers
+  let toggleCount = 0;
+    $('#dark-mode').on('click', function(){
+      toggleCount += 1;
+      if (toggleCount%2 == 0){
+        $('#dark-mode').text('Light 🔄');
+        $('body').addClass('dark');
+      }
+      else{
+        $('#dark-mode').text('Dark 🔄');
+        $('body').removeClass('dark');
+      }
+    })
+  ```
+  The default state is dark mode, so when the toggle count is even, dark mode is enabled, and when it's odd, light mode is enabled.
+### Problems I faced
+Counting toggleCount felt unnecessary, so I streamlined the code by using toggleClass to manage the state, checking the current state with hasClass, and dynamically updating the button text.
 ```js showLineNumbers
-let toggleCount = 0;
   $('#dark-mode').on('click', function(){
-    toggleCount += 1;
-    if (toggleCount%2 == 0){
-      $('#dark-mode').text('Light 🔄');
-      $('body').addClass('dark');
-    }
-    else{
-      $('#dark-mode').text('Dark 🔄');
-      $('body').removeClass('dark');
-    }
+    $('body').toggleClass('dark');
+    const isDarkMode = $('body').hasClass('dark'); // Check if dark mode is active
+    $('#dark-mode').text(isDarkMode ? 'Light 🔄' : 'Dark 🔄'); // Update button text
   })
 ```
 
-The default state is dark mode, so when the toggle count is even, dark mode is enabled, and when it's odd, light mode is enabled. Additionally, it's important to understand the differences between variables like var, let, and const.
+## Timer
+### What is it?
+You can trigger functions or perform actions after a specific amount of time has elapsed.
+```js showLineNumbers
+  <div class="alert alert-danger">
+    Buy in <span id="time-limit">5</span> sec and get one for free
+  </div>
+  
+  <script>
+    let time = $('#time-limit').text();
+    setInterval(function(){
+      time -= 1;
+      $('#time-limit').text(time);
+    }, 1000);
+    setTimeout(function(){
+      $('.alert').hide();
+    }, 5000);
+  </script>
+```
+This will decrease the number by 1 every second and hide the content after 5 seconds. 
+
+### What did I learn?
+- Variable types:
+
 | Variable     | Declaration | Manipulation | Scope/Range       |
 |--------------|--------------|--------------|-------------------|
 | `var`        | Function-scoped or globally scoped | Can be re-assigned and re-declared | Scoped to the function or globally if not declared within a function or block |
 | `let`        | Block-scoped   | Can be re-assigned but not re-declared | Scoped to the block, meaning it's limited to the block where it's declared |
 | `const`      | Block-scoped   | Cannot be re-assigned or re-declared | Scoped to the block, with the value being immutable once set |
+- Timers can be used to manipulate content. setTimeout runs once, while setInterval repeats every specified interval.
+- You can save the timer in a variable and stop it using `clearTimeout('timer name')`.
+### Problems I faced
+None.
 
+## Carousel
+### What is it?
+You can create a rotating image effect by:
+1. Arrange images horizontally by creating a container and adding individual slide boxes for each image.
+2. Ensuring only one box is visible at a time.
+3. Slide the container left or right to create a rotating effect.
+```js showLineNumbers
+  let curPosition = 0;
+  const slideWidth = 100;
+  const totalSlides = $('.slide').length; // Total number of slides
+  const maxPosition = -(slideWidth * (totalSlides - 1)); // Maximum left position
+  ...
+  // clicking the "Next" button shifts the slide to the left.
+  $('.next').on('click', function(){
+    // if the current position is less than the maximum position, move to the next slide
+    if (curPosition > maxPosition){
+      curPosition -= slideWidth;
+      // template literal
+      $('.slide-container').css('transform',`translateX(${curPosition}vw)`);
+    }
+  })
+```
+
+### What did I learn?
+- You're dynamically injecting a variable into a string, is often referred to as template literals.
+
+### Problems I faced
+- I didn't know how to use template literals. I should have used `` instead of '' but they look too similar.
+- Data types can be confusing—I can't always tell if something is a string, integer, or another type just by looking at it. I need TypeScript I guess.
+
+
+# Difficulty: Moderate
