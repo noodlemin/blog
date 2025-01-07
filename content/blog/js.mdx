@@ -285,7 +285,7 @@ You can trigger functions or perform actions after a specific amount of time has
     }, 5000);
   </script>
 ```
-This will decrease the number by 1 every second and hide the content after 5 seconds. 
+This will decrease the number by 1 every second and hide the content after 5 seconds.
 
 ### What did I learn?
 - Variable types:
@@ -329,6 +329,59 @@ You can create a rotating image effect by:
 ### Problems I faced
 - I didn't know how to use template literals. I should have used `` instead of '' but they look too similar.
 - Data types can be confusing—I can't always tell if something is a string, integer, or another type just by looking at it. I need TypeScript I guess.
+
+## Scroll Event listener
+### What is it?
+A function in JavaScript that listens for and responds to scroll actions on a webpage or a specific element.
+### What did I learn?
+- You can attach a scroll event listener to an element (or the window object) to execute a function every time the user scrolls.
+- You can create a read progress bar using this.
+```js showLineNumbers
+  // Attach a scroll event listener to the window object
+  $(window).on('scroll', function () {
+    // Check if the window has been scrolled vertically more than 100 pixels
+    if (window.scrollY > 100) {
+      // If true, reduce the font size of elements with the class 'navbar-brand' to 20px
+      $('.navbar-brand').css('font-size', '20px');
+    } else {
+      // If false (scroll is 100px or less), reset the font size to 30px
+      $('.navbar-brand').css('font-size', '30px');
+    }
+    // progress bar
+    // Get the total scrollable height
+    const documentHeight = $(document).height() - $(window).height();
+    // Get the current scroll position
+    const scrollPosition = $(window).scrollTop();
+    // Calculate the scroll percentage
+    const scrollPercentage = (scrollPosition / documentHeight) * 100;
+    // Set the width of the progress bar based on the scroll percentage
+    $('.progress-bar').css('width', scrollPercentage + '%');
+  });
+```
+### Problems I faced
+JavaScript triggers the scroll event up to 60 times per second, which can cause multiple alerts near the end of the box. To prevent this, I implemented a flag to detect when the bottom is reached and reset it if the user scrolls back up.
+```js showLineNumbers
+let scrolledToBottom = false;
+...
+if (roundedScroll === roundedHeight && !scrolledToBottom) {
+  scrolledToBottom = true; // Mark that the bottom has been reached
+  alert('Good job!'); // Notify the user with an alert
+}
+else if (roundedScroll < roundedHeight) {
+  // If the user scrolls up (not at the bottom anymore), reset the flag
+  scrolledToBottom = false;
+}
+```
+
+## Scroll Event listener
+### What is it?
+### What did I learn?
+### Problems I faced
+
+## Scroll Event listener
+### What is it?
+### What did I learn?
+### Problems I faced
 
 
 # Difficulty: Moderate
