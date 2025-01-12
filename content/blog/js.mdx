@@ -373,10 +373,43 @@ else if (roundedScroll < roundedHeight) {
 }
 ```
 
-## Scroll Event listener
+## Event Functions
 ### What is it?
+A function that is executed in response to a specific event occurring on a DOM element. It is commonly referred to as an event handler or event listener callback function. When you pass a function to an event listener (e.g., `.on('click', function() { ... })`), that function is executed in response to a specific event. We want to use it to prevent the event bubbling happend below:
+``` js showLineNumbers {2,7}
+  // html
+  <div class="black-bg">
+    <div class="white-bg"></div>
+  </div>
+  ...
+  // js
+  $('.black-bg').on('click', function(){
+    $('.black-bg').removeClass('show');
+  })
+```
+We created a function to close the modal when the black background is clicked, but it also triggers when clicking the white background. To resolve this, we need to use an event handler to target the specific element.
+
+``` js showLineNumbers {2}
+  // close the modal when the black background clicked
+  $('.black-bg').on('click', function(e){
+    // Ensures the event fires only when clicking directly on .black-bg.
+    if (e.target === this){
+      // removes the 'show' class from the '.black-bg' class.
+      $(this).removeClass('show');
+    }
+  })
+```
+
 ### What did I learn?
+- Event bubbling: A mechanism in the DOM where an event triggered on a child element propagates (or "bubbles up") to its parent elements, all the way up to the root of the document.
+- Some event functions:
+  - e.target: Identifies the specific element clicked inside the '.black-bg'.
+  - e.currentTarget or this: Points to '.black-bg', the element with the click listener.
+  - e.preventDefault(): Prevent unwanted default browser behavior.
+  - e.stopPropagation(): Stop clicks inside '.black-bg' from triggering parent click events.
+
 ### Problems I faced
+None.
 
 ## Scroll Event listener
 ### What is it?
