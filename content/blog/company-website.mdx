@@ -8,6 +8,35 @@ published: true
 # Summary
 This project focuses on developing the official company website. It's built with a modern web stack to ensure a fast, responsive, and engaging user experience across all devices. We've prioritized a clean, intuitive design and smooth animations to effectively showcase our land development projects and company vision.
 
+This project is my implementation of [the Awwwards-style website tutorial](https://www.youtube.com/watch?v=zA9r5zTllx4&t=3625s) created by JavaScript Mastery.
+
+# Core Technologies
+## GSAP (GreenSock Animation Platform)
+GSAP is used for creating highly performant and complex animations. From subtle hover effects to dynamic section transitions, GSAP delivers smooth, hardware-accelerated animations that elevate the user experience and add a layer of polish to the site.
+
+# Prerequsites
+- React
+
+# Project Setup
+Initialize a React project and install the necessary dependencies.
+
+## Node.js
+You need to install [Node.js](https://nodejs.org/en/download). It allows developers to use JavaScript to write command-line tools and, most importantly, server-side scripts. This means you can use the same language for both the front-end and back-end of a website, streamlining the development process.
+## Vite
+Vite is a next-generation frontend build tool that offers an extremely fast development experience due to its native ES module-based dev server and lightning-fast Hot Module Replacement (HMR). Create your project folder, then run the following script in your command line in your newly created project folder.
+```bash
+npm create vite@latest ./
+```
+Select React, and then decide between JavaScript or TypeScript.
+## TailwindCSS
+We'll be using version 3. Please follow the instructions provided [here](https://v3.tailwindcss.com/docs/installation).
+## GSAP and other dependencies
+```bash
+npm install gsap @gsap/react 
+npm install --save clsx react-icons
+```
+
+# Sections
 ## Hero
 This section covers the construction of an animated hero section in React. The final component features a video transition system, a 3D parallax hover effect, and a scroll-based `clip-path` animation.
 
@@ -16,21 +45,4 @@ This section covers the construction of an animated hero section in React. The f
 - GSAP (`ScrollTrigger` plugin)
 - Tailwind CSS
 
-## Project Setup
 
-Initialize a React project and install the necessary dependencies.
-
-```bash
-# Using Next.js
-npx create-next-app@latest my-animated-hero
-cd my-animated-hero
-
-# Install dependencies
-npm install gsap @gsap/react react-icons
-
-
-# Prerequsites
-- React
-# Core Technologies
-## GSAP (GreenSock Animation Platform)
-GSAP is used for creating highly performant and complex animations. From subtle hover effects to dynamic section transitions, GSAP delivers smooth, hardware-accelerated animations that elevate the user experience and add a layer of polish to the site.
