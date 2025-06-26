@@ -1,5 +1,5 @@
 ---
-title: Company Website Development Blog description: A responsive and interactive company website built with React, Tailwind CSS, and GSAP date: 2025-06-26 tags: ["React", "Tailwind CSS", "GSAP", "Web Development", "Portfolio"] published: true 
+title: Company Website Development Blog description: A responsive and interactive company website built with React, Tailwind CSS, and GSAP date: 2025-06-26 tags: ["React", "Tailwind CSS", "GSAP", "Web Development", "Portfolio"] published: true
 ---
 
 # Summary
@@ -20,7 +20,7 @@ You need to install Node.js. It allows developers to use JavaScript to write com
 ## Vite
 Vite is a next-generation frontend build tool that offers an extremely fast development experience due to its native ES module-based dev server and lightning-fast Hot Module Replacement (HMR). Create your project folder, then run the following script in your command line in your newly created project folder.
 
-```Bash
+``` Bash
 npm create vite@latest ./
 ```
 Select React, and then decide between JavaScript or TypeScript.
@@ -29,18 +29,16 @@ Select React, and then decide between JavaScript or TypeScript.
 We'll be using version 3. Please follow the instructions provided here.
 
 ## GSAP and other dependencies
-
 ``` Bash
-npm install gsap @gsap/react 
+npm install gsap @gsap/react
 npm install --save clsx react-icons
 ```
 
 # Sections
-
 ## Hero
 This component's architecture combines multiple GSAP techniques: state-driven animations via the useGSAP hook, scroll-linked animations using ScrollTrigger, and 3D transforms for interactive parallax effects.
 
-**Technologies Used:**
+**Technologies Used**:
 
 * React (with @gsap/react hook)
 
@@ -90,7 +88,7 @@ Building a dynamic, interactive map is a fantastic way to showcase a portfolio o
 3. Map Centering "Race Condition" on Marker Click
 * Problem: Clicking a new marker while the map was still zoomed in from a previous interaction caused a conflict between the **setLevel** and **panTo** animations, resulting in the map failing to center correctly.
 
-* Solution: The fix was to remove the animation from the zoom command by changing **map.setLevel(5, { animate: true })** to just **map.setLevel(5)**. This makes the zoom level change instantly, allowing the pan animation to execute smoothly without conflict.
+* Solution: The fix was to remove the animation from the zoom command by changing **map.setLevel(5, ```{ animate: true }```)** to just **map.setLevel(5)**. This makes the zoom level change instantly, allowing the pan animation to execute smoothly without conflict.
 
 
 4. Dynamic Viewport: Auto-Fitting Markers on Filter Change
