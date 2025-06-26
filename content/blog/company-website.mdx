@@ -1,48 +1,116 @@
 ---
-title: Company Website
-description: A responsive and interactive company website built with React, Tailwind CSS, and GSAP
-date: 2025-06-05
-tags: ["React", "Tailwind CSS", "GSAP", "Web Development"]
-published: true
+title: Company Website Development Blog description: A responsive and interactive company website built with React, Tailwind CSS, and GSAP date: 2025-06-26 tags: ["React", "Tailwind CSS", "GSAP", "Web Development", "Portfolio"] published: true 
 ---
+
 # Summary
 This project focuses on developing the official company website. It's built with a modern web stack to ensure a fast, responsive, and engaging user experience across all devices. We've prioritized a clean, intuitive design and smooth animations to effectively showcase our land development projects and company vision.
 
-This project is my implementation of [the Awwwards-style website tutorial](https://www.youtube.com/watch?v=zA9r5zTllx4&t=3625s) created by JavaScript Mastery.
+This project is my implementation of the Awwwards-style website tutorial created by JavaScript Mastery.
 
 # Core Technologies
 ## GSAP (GreenSock Animation Platform)
 GSAP is used for creating highly performant and complex animations. From subtle hover effects to dynamic section transitions, GSAP delivers smooth, hardware-accelerated animations that elevate the user experience and add a layer of polish to the site.
 
-# Prerequsites
-- React
-
 # Project Setup
 Initialize a React project and install the necessary dependencies.
 
 ## Node.js
-You need to install [Node.js](https://nodejs.org/en/download). It allows developers to use JavaScript to write command-line tools and, most importantly, server-side scripts. This means you can use the same language for both the front-end and back-end of a website, streamlining the development process.
+You need to install Node.js. It allows developers to use JavaScript to write command-line tools and, most importantly, server-side scripts. This means you can use the same language for both the front-end and back-end of a website, streamlining the development process.
+
 ## Vite
 Vite is a next-generation frontend build tool that offers an extremely fast development experience due to its native ES module-based dev server and lightning-fast Hot Module Replacement (HMR). Create your project folder, then run the following script in your command line in your newly created project folder.
-```bash
+
+```Bash
 npm create vite@latest ./
 ```
 Select React, and then decide between JavaScript or TypeScript.
+
 ## TailwindCSS
-We'll be using version 3. Please follow the instructions provided [here](https://v3.tailwindcss.com/docs/installation).
+We'll be using version 3. Please follow the instructions provided here.
+
 ## GSAP and other dependencies
-```bash
+
+``` Bash
 npm install gsap @gsap/react 
 npm install --save clsx react-icons
 ```
 
 # Sections
+
 ## Hero
-This section covers the construction of an animated hero section in React. The final component features a video transition system, a 3D parallax hover effect, and a scroll-based `clip-path` animation.
+This component's architecture combines multiple GSAP techniques: state-driven animations via the useGSAP hook, scroll-linked animations using ScrollTrigger, and 3D transforms for interactive parallax effects.
 
 **Technologies Used:**
-- React (with `@gsap/react` hook)
-- GSAP (`ScrollTrigger` plugin)
-- Tailwind CSS
+
+* React (with @gsap/react hook)
+
+* GSAP (ScrollTrigger plugin)
+
+* Tailwind CSS
+
+### Trouble Shooting
+
+* Video Resolution on iOS: Videos must have a consistent resolution (e.g., 1920x1080) to prevent layout issues on iOS devices.
+
+* iOS Inline Playback: The **playsInline** attribute is essential for videos to play within the page on iOS instead of going full-screen.
 
 
+## About
+The **About** section initially featured a word-by-word animation that caused performance issues and scroll-jumping on mobile browsers. After several attempts to fix it with GSAP and **react-intersection-observer**, the most stable solution was to replace it with a robust, pure CSS animation that triggers on load to prioritize a smooth user experience.
+
+## NavBar
+### Language Switch
+To implement multilingual support, the following dependencies were installed:
+
+``` Bash
+npm install i18next react-i18next i18next-browser-languagedetector
+```
+A **LanguageLayout** component was created to manage language changes based on the URL, ensuring a seamless experience for international users.
+
+### Vercel Deployment
+To fix the "404 Not Found" error when refreshing a dynamic route page on Vercel, a vercel.json file was created to handle client-side routing rewrites.
+
+## Portfolio
+### Polishing the Interactive Map
+Building a dynamic, interactive map is a fantastic way to showcase a portfolio of properties. As I developed our portfolio page using React and Kakao Maps, I encountered several common but tricky bugs that affected the user experience. This post details the problems I found and the solutions I implemented to create a smoother, more professional map interface.
+
+1. Info Window Text Overflow
+(Instruction: For a bulleted list, start each line with * followed by a space. To make part of a line bold, wrap it in double asterisks **.)
+
+* Problem: When an info window was opened, long descriptions would not wrap correctly, breaking the layout.
+
+* Solution: The definitive fix was to apply the Tailwind utility **break-all**, which forces a line break at any character to ensure the text always stays within its container.
+
+
+2. Mobile Usability: Info Window Obscuring the Marker
+* Problem: On mobile screens, the info window at the top of the map would completely cover the marker the user had just tapped.
+
+* Solution: I implemented a check within the **handleMarkerClick** function. On screens narrower than 1024px, after the map pans to the marker, an additional **map.panBy(0, -150)** command shifts the map's center up, moving the selected marker down into the visible area.
+
+3. Map Centering "Race Condition" on Marker Click
+* Problem: Clicking a new marker while the map was still zoomed in from a previous interaction caused a conflict between the **setLevel** and **panTo** animations, resulting in the map failing to center correctly.
+
+* Solution: The fix was to remove the animation from the zoom command by changing **map.setLevel(5, { animate: true })** to just **map.setLevel(5)**. This makes the zoom level change instantly, allowing the pan animation to execute smoothly without conflict.
+
+
+4. Dynamic Viewport: Auto-Fitting Markers on Filter Change
+* Problem: When a user clicked a filter button, the markers updated, but the map's zoom and center remained the same, often leaving the relevant markers out of view.
+
+* Solution: A **useEffect** hook now triggers whenever the filters change. It calculates the optimal map boundaries to encompass all visible markers and automatically adjusts the map's view using **map.setBounds()**.
+
+
+5. UI/UX: Moving from Map Overlay to a Fixed Info Window
+* Problem: The initial info window was a **CustomOverlayMap**, which is tied directly to a map coordinate and can be visually cluttered.
+
+* Solution: I refactored the design to use a fixed-position info window that renders on top of the map container (**position: absolute**). This provides a more stable, dashboard-like feel.
+
+6. Code Maintainability: Reusable Data Structure
+* Problem: The **properties** data array was defined directly inside the **Portfolio** component, making it hard to reuse.
+
+* Solution: I extracted all property-related data and helper functions into a separate **src/data/properties.js** file. The **Portfolio** component now simply imports this data, making the code cleaner and more modular.
+
+## Contact
+The contact page includes a form integrated with **emailjs** for direct email submission.
+
+### Legal (Privacy)
+A single **Legal** page was created to house both the Privacy Policy and the "Refusal of Unauthorized Email Collection" notice. The component uses URL hashes (**#privacy**, **#noemail**) and React state to toggle between the two sections, providing a clean and consolidated user experience.
